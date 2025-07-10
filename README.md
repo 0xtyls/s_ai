@@ -39,13 +39,14 @@ source .venv/bin/activate      # Windows: .venv\Scripts\activate
 
 # Dependencies (CPU PyTorch wheel)
 pip install -r requirements.txt
-```
+
 
 # Optional: use GPU
 # pip uninstall torch
 # Follow https://pytorch.org for the matching CUDA wheel
 
 # Having trouble building wheels on macOS?  
+```
 The default `pip install -r requirements.txt` occasionally fails when **pandas**
 needs compilation (Clang error *“too many errors emitted”*).  
 Use the **binary-only** fallback:
