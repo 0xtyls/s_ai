@@ -1,18 +1,24 @@
-# Core dependencies
-torch>=2.0.0,<3.0.0  # PyTorch CPU version
-numpy>=1.22.0,<2.0.0  # Numerical operations
-matplotlib>=3.5.0,<4.0.0  # Visualization
-pandas>=1.4.0,<2.0.0  # Data analysis
-tensorboard>=2.10.0,<3.0.0  # Training metrics visualization
+# Core dependencies (install with: pip install --only-binary=:all: -r requirements.txt)
+torch>=2.0.0,<3.0.0  # PyTorch CPU version (install with: pip install torch --index-url https://download.pytorch.org/whl/cpu)
+numpy>=1.26.0,<3.0.0  # Numerical operations
+matplotlib>=3.7.0,<4.0.0  # Visualization
+pandas>=2.0.0,<3.0.0  # Data analysis (install with: pip install pandas --only-binary=pandas)
+tensorboard>=2.14.0,<3.0.0  # Training metrics visualization (optional)
 
 # Game and AI utilities
 pydantic>=2.0.0,<3.0.0  # Data validation and settings management
-rich>=12.0.0,<13.0.0  # Beautiful terminal output
-tqdm>=4.64.0,<5.0.0  # Progress bars
+rich>=13.0.0,<15.0.0  # Beautiful terminal output
+tqdm>=4.65.0,<5.0.0  # Progress bars
 
-# Development tools
-pytest>=7.0.0,<8.0.0  # Testing framework
-pytest-cov>=4.0.0,<5.0.0  # Test coverage
-mypy>=1.0.0,<2.0.0  # Static type checking
-black>=23.0.0,<24.0.0  # Code formatting
-isort>=5.10.0,<6.0.0  # Import sorting
+# Development tools (optional)
+# pytest>=7.0.0,<8.0.0  # Testing framework
+# pytest-cov>=4.0.0,<5.0.0  # Test coverage
+# mypy>=1.0.0,<2.0.0  # Static type checking
+# black>=23.0.0,<24.0.0  # Code formatting
+# isort>=5.10.0,<6.0.0  # Import sorting
+
+# Alternative installation method for macOS/Linux if compilation fails:
+# 1. pip install numpy matplotlib tqdm rich pydantic
+# 2. pip install pandas --only-binary=pandas
+# 3. pip install torch --index-url https://download.pytorch.org/whl/cpu
+# 4. pip install tensorboard

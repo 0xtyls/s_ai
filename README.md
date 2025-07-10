@@ -43,6 +43,25 @@ pip install -r requirements.txt
 # Optional: use GPU
 # pip uninstall torch
 # Follow https://pytorch.org for the matching CUDA wheel
+
+# Having trouble building wheels on macOS?  
+The default `pip install -r requirements.txt` occasionally fails when **pandas**
+needs compilation (Clang error *“too many errors emitted”*).  
+Use the **binary-only** fallback:
+```bash
+# 1. Core scientific stack – all wheels, no compilation
+pip install numpy matplotlib tqdm rich pydantic
+
+# 2. Pre-built pandas wheel
+pip install pandas --only-binary=pandas
+
+# 3. PyTorch CPU wheel
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+
+# 4. Optional TensorBoard
+pip install tensorboard
+```
+After these steps the project imports fine and **all tests pass** (`python test_everything.py --engine --random`).
 ```
 
 ---
@@ -163,6 +182,7 @@ Tune anything; everything is Python dataclasses.
 | No valid actions error | Rare edge case when hand is full. Reset game or increase `max-turns`. |
 | Slow MCTS | Reduce `--mcts-iterations` or run on PyPy. |
 | GPU not used | Verify `torch.cuda.is_available()`; install the CUDA wheel. |
+| Pandas wheel fails to compile (macOS clang) | Follow the binary-only fallback in *Quick Install* section. |
 
 ---
 
