@@ -39,6 +39,7 @@ source .venv/bin/activate      # Windows: .venv\Scripts\activate
 
 # Dependencies (CPU PyTorch wheel)
 pip install -r requirements.txt
+```
 
 # Optional: use GPU
 # pip uninstall torch
@@ -62,7 +63,6 @@ pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install tensorboard
 ```
 After these steps the project imports fine and **all tests pass** (`python test_everything.py --engine --random`).
-```
 
 ---
 
