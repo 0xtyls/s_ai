@@ -135,7 +135,7 @@ def create_agent(agent_type, args, name=None):
             # Create PPO agent
             agent = PPOAgent(
                 config=ppo_config,
-                state_dim=50,  # Match the state encoding in simple_train.py
+                state_dim=71,  # Must match PPOAgent._encode_state (71 features)
                 action_dim=50,  # Simplified action space
                 name=name or "PPO AI"
             )
@@ -149,7 +149,7 @@ def create_agent(agent_type, args, name=None):
             # Create A2C agent
             agent = A2CAgent(
                 config=a2c_config,
-                state_dim=50,
+                state_dim=71,
                 action_dim=50,
                 name=name or "A2C AI"
             )
