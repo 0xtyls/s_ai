@@ -444,7 +444,8 @@ class Trainer:
         """
         # Use config values if not specified
         total_timesteps = total_timesteps or self.config.total_timesteps
-        eval_interval = eval_interval or self.config.eval_interval
+        eval_interval = eval_interval or getattr(self.config, "eval_interval", 10)
+        save_interval = getattr(self.config, "save_interval", 10)
         
         # Initialize progress bar
         pbar = tqdm(total=total_timesteps, desc=f"Training {self.agent.name}")
@@ -488,7 +489,7 @@ class Trainer:
                     self.save_checkpoint(os.path.join(self.config.checkpoint_dir, f"{self.agent.name}_best_win_rate.pt"))
             
             # Save checkpoint
-            if self.updates % self.config.save_interval == 0:
+            if self.updates % save_interval == 0:
                 self.save_checkpoint(os.path.join(self.config.checkpoint_dir, f"{self.agent.name}_{self.updates}.pt"))
             
             # Update progress bar
@@ -873,7 +874,10 @@ class SelfPlayTrainer(Trainer):
         """
         # Use config values if not specified
         total_timesteps = total_timesteps or self.config.total_timesteps
-        eval_interval = eval_interval or self.config.eval_interval
+        # Some configs (e.g. the vanilla TrainingConfig) do not define
+        # ``eval_interval`` / ``save_interval``.  Fallback to sensible defaults.
+        eval_interval = eval_interval or getattr(self.config, "eval_interval", 10)
+        save_interval = getattr(self.config, "save_interval", 10)
         
         # Initialize progress bar
         pbar = tqdm(total=total_timesteps, desc=f"Training {self.agent.name}")
@@ -917,7 +921,7 @@ class SelfPlayTrainer(Trainer):
                     self.save_checkpoint(os.path.join(self.config.checkpoint_dir, f"{self.agent.name}_best_win_rate.pt"))
             
             # Save checkpoint
-            if self.updates % self.config.save_interval == 0:
+            if self.updates % save_interval == 0:
                 self.save_checkpoint(os.path.join(self.config.checkpoint_dir, f"{self.agent.name}_{self.updates}.pt"))
             
             # Update progress bar

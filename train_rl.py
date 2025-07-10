@@ -161,11 +161,13 @@ def create_agent(args) -> RLAgent:
         Created agent
     """
     # Create network configuration
+    # NetworkConfig expects a list named `hidden_sizes`. It does not accept
+    # `network_type` or `device`, so we construct it accordingly.
+    # We replicate the user-provided hidden size for the specified number of
+    # layers (default 2). This keeps CLI behaviour identical while respecting
+    # the dataclass definition.
     network_config = NetworkConfig(
-        hidden_size=args.hidden_size,
-        num_layers=args.num_layers,
-        network_type=args.network_type,
-        device=args.device
+        hidden_sizes=[args.hidden_size] * args.num_layers
     )
     
     # Create agent based on type
@@ -247,7 +249,7 @@ def create_agent(args) -> RLAgent:
         
         # Create MCTS configuration
         mcts_config = MCTSConfig(
-            num_simulations=100,
+            iterations=100,
             exploration_weight=1.0
         )
         
@@ -288,8 +290,6 @@ def create_training_config(args) -> TrainingConfig:
         total_timesteps=total_timesteps,
         steps_per_update=args.steps_per_update,
         eval_episodes=args.eval_episodes,
-        eval_interval=args.eval_interval,
-        save_interval=args.save_interval,
         checkpoint_dir=args.save_dir,
         log_dir=args.log_dir,
         use_tensorboard=args.use_tensorboard,
@@ -417,7 +417,7 @@ def evaluate(args, agent: RLAgent, game_class: type) -> Dict[str, float]:
             opponent = RandomAgent(name="Random Opponent")
         elif opponent_type == "mcts":
             mcts_config = MCTSConfig(
-                num_simulations=100,
+                iterations=100,
                 exploration_weight=1.0
             )
             opponent = MCTSAgent(config=mcts_config, name="MCTS Opponent")
